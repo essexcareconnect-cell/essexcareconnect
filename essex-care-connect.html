@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Essex Care Connect — Find Trusted Local Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #4a7c6f;
+    --sage-light: #6a9e8f;
+    --sage-pale: #e8f0ee;
+    --cream: #faf8f4;
+    --warm-white: #fffef9;
+    --charcoal: #2c3330;
+    --mid: #5a6560;
+    --light: #8a9590;
+    --gold: #c4973a;
+    --gold-light: #e8c46a;
+    --blush: #e8d5c4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Force light mode always — site is designed for light */
+  :root { color-scheme: light only; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #faf8f4 !important;
+    color: #2c3330 !important;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #faf8f4;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74,124,111,0.15);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--sage);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--gold); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav ul a {
+    text-decoration: none;
+    color: var(--mid);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--sage); }
+
+  .nav-cta {
+    background: var(--sage);
+    color: white !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--sage-light) !important; color: white !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 6rem 4rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--sage-pale);
+    color: var(--sage);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
+    line-height: 1.15;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--sage);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--mid);
+    line-height: 1.7;
+    max-width: 460px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--sage);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(74,124,111,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--sage-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(74,124,111,0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(44,51,48,0.2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--sage);
+    color: var(--sage);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(74,124,111,0.15);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .stat-item strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--sage);
+    font-weight: 700;
+  }
+  .stat-item span {
+    font-size: 0.82rem;
+    color: var(--light);
+    font-weight: 400;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--sage-pale);
+    overflow: hidden;
+    animation: fadeIn 0.8s 0.2s ease both;
+  }
+
+  .hero-image-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(74,124,111,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 70%, rgba(196,151,58,0.1) 0%, transparent 50%);
+  }
+
+  .hero-card-stack {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+  }
+
+  .care-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 8px 40px rgba(44,51,48,0.12);
+    max-width: 340px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .care-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .carer-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sage), var(--sage-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    flex-shrink: 0;
+  }
+
+  .carer-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+  .carer-info p {
+    font-size: 0.8rem;
+    color: var(--mid);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .carer-badge {
+    margin-left: auto;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .care-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .care-tag {
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .care-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .stars {
+    color: var(--gold);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+  .review-count {
+    font-size: 0.75rem;
+    color: var(--light);
+    margin-left: 0.3rem;
+  }
+
+  .contact-btn {
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .contact-btn:hover { background: var(--sage-light); }
+
+  /* Floating mini cards */
+  .float-card {
+    position: absolute;
+    background: white;
+    border-radius: 14px;
+    padding: 0.9rem 1.2rem;
+    box-shadow: 0 4px 20px rgba(44,51,48,0.1);
+    font-size: 0.8rem;
+    z-index: 3;
+  }
+
+  .float-card-1 {
+    top: 18%;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    animation: floatUp 3s ease-in-out infinite;
+  }
+  .float-card-1 .icon { font-size: 1.2rem; }
+  .float-card-1 strong { display: block; font-size: 0.78rem; color: var(--charcoal); }
+  .float-card-1 span { color: var(--light); font-size: 0.7rem; }
+
+  .float-card-2 {
+    bottom: 22%;
+    right: 4%;
+    text-align: center;
+    animation: floatUp 3s 1.5s ease-in-out infinite;
+  }
+  .float-card-2 strong { display: block; font-size: 1.1rem; color: var(--sage); font-family: 'Playfair Display', serif; }
+  .float-card-2 span { color: var(--light); font-size: 0.7rem; }
+
+  /* SEARCH */
+  .search-section {
+    background: white;
+    padding: 4rem 5rem;
+    border-top: 1px solid rgba(74,124,111,0.1);
+  }
+
+  .search-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .search-section > p {
+    color: var(--mid);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .search-bar {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    background: var(--cream);
+    border: 1.5px solid rgba(74,124,111,0.2);
+    border-radius: 16px;
+    padding: 0.8rem;
+    max-width: 760px;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--sage); }
+
+  .search-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem 0.8rem;
+  }
+  .search-field label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--light);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .search-field select,
+  .search-field input {
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    outline: none;
+    font-weight: 400;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .search-divider {
+    width: 1px;
+    background: rgba(74,124,111,0.15);
+    margin: 0.2rem 0;
+  }
+
+  .search-btn {
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .search-btn:hover { background: var(--sage-light); }
+
+  /* SERVICES */
+  .services {
+    padding: 5rem;
+    background: var(--cream);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sage);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    color: var(--charcoal);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--mid);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1.5px solid transparent;
+    transition: all 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sage), var(--sage-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s;
+  }
+  .service-card:hover {
+    border-color: rgba(74,124,111,0.2);
+    box-shadow: 0 8px 30px rgba(74,124,111,0.1);
+    transform: translateY(-3px);
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--sage-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .service-card p {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .service-link {
+    font-size: 0.82rem;
+    color: var(--sage);
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .service-link::after { content: '→'; transition: transform 0.2s; }
+  .service-card:hover .service-link::after { transform: translateX(4px); }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 5rem;
+    background: var(--charcoal);
+    color: white;
+  }
+
+  .how .section-label { color: var(--gold-light); }
+  .how .section-title { color: white; }
+  .how .section-sub { color: rgba(255,255,255,0.55); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(12.5% + 28px);
+    right: calc(12.5% + 28px);
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center;
+    padding: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(74,124,111,0.3);
+    border: 1.5px solid var(--sage-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--sage-light);
+    font-weight: 700;
+  }
+
+  .step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .step p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* PROVIDERS */
+  .providers {
+    padding: 5rem;
+    background: var(--sage-pale);
+  }
+
+  .providers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .provider-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 2px 16px rgba(44,51,48,0.06);
+    transition: all 0.25s;
+  }
+  .provider-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(44,51,48,0.12);
+  }
+
+  .provider-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .provider-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .av1 { background: linear-gradient(135deg, #4a7c6f, #6a9e8f); }
+  .av2 { background: linear-gradient(135deg, #7c6f4a, #9e8f6a); }
+  .av3 { background: linear-gradient(135deg, #6f4a7c, #8f6a9e); }
+
+  .provider-name h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+  .provider-name p {
+    font-size: 0.78rem;
+    color: var(--mid);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .cqc-badge {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #e3f2fd;
+    color: #1565c0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .provider-desc {
+    font-size: 0.83rem;
+    color: var(--mid);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .provider-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ptag {
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .provider-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sage-pale);
+  }
+
+  .provider-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .rating-stars { color: var(--gold); font-size: 0.82rem; }
+  .rating-num { font-size: 0.78rem; color: var(--light); }
+
+  .enquire-btn {
+    background: transparent;
+    border: 1.5px solid var(--sage);
+    color: var(--sage);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .enquire-btn:hover {
+    background: var(--sage);
+    color: white;
+  }
+
+  /* INDEPENDENT CARERS */
+  .carers-section {
+    padding: 5rem;
+    background: white;
+  }
+
+  .carers-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .carers-intro-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    color: var(--charcoal);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .carers-intro-text p {
+    color: var(--mid);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .dbs-notice {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    background: var(--blush);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+  .dbs-notice .dbs-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .benefit-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: 1rem 1.2rem;
+    background: var(--sage-pale);
+    border-radius: 12px;
+    border-left: 3px solid var(--sage);
+  }
+  .benefit-item .b-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .benefit-item h4 { font-size: 0.88rem; font-weight: 600; color: var(--charcoal); margin-bottom: 0.2rem; }
+  .benefit-item p { font-size: 0.78rem; color: var(--mid); line-height: 1.4; }
+
+  .carer-signup-form {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1.5px solid rgba(74,124,111,0.15);
+  }
+  .carer-signup-form h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .carer-signup-form > p {
+    color: var(--mid);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .form-group-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .carer-form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid rgba(74,124,111,0.2);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+    margin-bottom: 0.9rem;
+  }
+  .carer-form-input:focus { border-color: var(--sage); }
+
+  .carer-form-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .checkbox-group {
+    margin-bottom: 1rem;
+  }
+  .checkbox-group-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--mid);
+    cursor: pointer;
+    padding: 0.3rem;
+  }
+  .checkbox-item input[type="checkbox"] {
+    accent-color: var(--sage);
+    width: 15px; height: 15px;
+    cursor: pointer;
+  }
+
+  .carer-submit-btn {
+    width: 100%;
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .carer-submit-btn:hover { background: var(--sage-light); }
+
+  .carer-success {
+    text-align: center;
+    padding: 2rem 0;
+    display: none;
+  }
+  .carer-success .check { font-size: 3rem; margin-bottom: 1rem; }
+  .carer-success h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+  .carer-success p { color: var(--mid); font-size: 0.88rem; }
+
+  /* CTA */
+  .cta-section {
+    padding: 5rem;
+    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: white;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-section p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1.05rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--sage);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+  .btn-outline-white {
+    background: transparent;
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    padding: 3rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+  }
+
+  footer .logo { font-size: 1.2rem; }
+
+  footer nav ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  footer nav ul a {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.82rem;
+  }
+
+  footer nav ul a:hover { color: white; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44,51,48,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    animation: scaleIn 0.3s ease both;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mid);
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--sage-pale); }
+
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .modal > p {
+    color: var(--mid);
+    font-size: 0.88rem;
+    margin-bottom: 1.8rem;
+    font-weight: 300;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid rgba(74,124,111,0.2);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.2s;
+    background: var(--cream);
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--sage); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { background: var(--sage-light); }
+
+  .success-msg {
+    text-align: center;
+    padding: 2rem 0;
+    display: none;
+  }
+  .success-msg .check { font-size: 3rem; margin-bottom: 1rem; }
+  .success-msg h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+  .success-msg p { color: var(--mid); font-size: 0.88rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav { padding: 1rem 1.2rem; }
+    nav ul { display: none; }
+
+    /* HERO */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 1.5rem 1.2rem; padding-top: 5rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 0.95rem; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions a { text-align: center; justify-content: center; }
+    .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
+    .hero-right { min-height: 300px; }
+    .float-card-1 { top: 8%; left: 2%; }
+    .float-card-2 { bottom: 8%; right: 2%; }
+
+    /* SEARCH */
+    .search-section { padding: 2rem 1.2rem; }
+    .search-bar { flex-direction: column; gap: 0; padding: 0.5rem; }
+    .search-field { padding: 0.6rem 0.8rem; }
+    .search-divider { display: none; }
+    .search-btn { width: 100%; margin-top: 0.5rem; border-radius: 8px; }
+
+    /* SERVICES */
+    .services { padding: 2.5rem 1.2rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .section-title { font-size: 1.7rem; }
+
+    /* HOW IT WORKS */
+    .how { padding: 2.5rem 1.2rem; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .steps::before { display: none; }
+    .step { padding: 1rem 0.5rem; }
+    .step p { font-size: 0.75rem; }
+
+    /* PROVIDERS */
+    .providers { padding: 2.5rem 1.2rem; }
+    .providers-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+    /* INDEPENDENT CARERS */
+    .carers-section { padding: 2.5rem 1.2rem; }
+    .carers-intro { grid-template-columns: 1fr; gap: 2rem; }
+    .carer-signup-form { padding: 1.5rem 1rem; }
+    .form-group-inline { grid-template-columns: 1fr; gap: 0; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+
+    /* CTA */
+    .cta-section { padding: 3rem 1.2rem; }
+    .cta-buttons { flex-direction: column; align-items: stretch; }
+    .cta-buttons a { text-align: center; }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 2rem 1.2rem;
+      text-align: center;
+    }
+    footer nav ul {
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* MODALS */
+    .modal-overlay { padding: 1rem; align-items: flex-end; }
+    .modal {
+      border-radius: 20px 20px 0 0;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 1.5rem 1.2rem;
+    }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Essex Care<span>Connect</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#providers">Find Carers</a></li>
+    <li><a href="#carers">Work as a Carer</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal('find')">Get Care</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Serving all of Essex</div>
+    <h1>Trusted care,<br>close to <em>home.</em></h1>
+    <p>Find vetted, compassionate care providers across Essex — from daily support at home to specialist dementia care. Simple. Local. Personal.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="openModal('find')">Find Care Now</a>
+      <a href="#providers" class="btn-secondary">Browse Providers</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <strong>CQC</strong>
+        <span>Registered providers</span>
+      </div>
+      <div class="stat-item">
+        <strong>12</strong>
+        <span>Essex districts covered</span>
+      </div>
+      <div class="stat-item">
+        <strong>Free</strong>
+        <span>No cost to families</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-bg"></div>
+    <div class="float-card float-card-1">
+      <div class="icon">✅</div>
+      <div>
+        <strong>CQC Verified</strong>
+        <span>All providers checked</span>
+      </div>
+    </div>
+    <div class="hero-card-stack">
+      <div class="care-card">
+        <div class="care-card-header">
+          <div class="carer-avatar">S</div>
+          <div class="carer-info">
+            <h4>Sunrise Care, Chelmsford</h4>
+            <p>Home care & companionship</p>
+          </div>
+          <span class="carer-badge">Available</span>
+        </div>
+        <div class="care-tags">
+          <span class="care-tag">Personal Care</span>
+          <span class="care-tag">Dementia</span>
+          <span class="care-tag">Live-in</span>
+          <span class="care-tag">Respite</span>
+        </div>
+        <div class="care-card-footer">
+          <div>
+            <span class="stars">★★★★★</span>
+            <span class="review-count">48 reviews</span>
+          </div>
+          <button class="contact-btn" onclick="openModal('find')">Enquire</button>
+        </div>
+      </div>
+    </div>
+    <div class="float-card float-card-2">
+      <strong>4.9 / 5</strong>
+      <span>Average rating</span>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section" id="search">
+  <h2>Find care near you</h2>
+  <p>Search vetted providers across all Essex districts</p>
+  <div class="search-bar">
+    <div class="search-field">
+      <label>Service Needed</label>
+      <select>
+        <option>Personal care at home</option>
+        <option>Companionship visits</option>
+        <option>Dementia care</option>
+        <option>Live-in care</option>
+        <option>Respite care</option>
+        <option>Disability support</option>
+        <option>Hospital discharge support</option>
+        <option>Night care</option>
+      </select>
+    </div>
+    <div class="search-divider"></div>
+    <div class="search-field">
+      <label>Your Area</label>
+      <select>
+        <option>Chelmsford</option>
+        <option>Colchester</option>
+        <option>Southend-on-Sea</option>
+        <option>Brentwood</option>
+        <option>Basildon</option>
+        <option>Harlow</option>
+        <option>Braintree</option>
+        <option>Epping Forest</option>
+        <option>Tendring</option>
+        <option>Rochford</option>
+        <option>Maldon</option>
+        <option>Uttlesford</option>
+      </select>
+    </div>
+    <div class="search-divider"></div>
+    <div class="search-field">
+      <label>Start Date</label>
+      <input type="text" placeholder="As soon as possible">
+    </div>
+    <button class="search-btn" onclick="openModal('find')">Search →</button>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What we cover</div>
+  <div class="section-title">Care for every stage of life</div>
+  <p class="section-sub">Whether you need a few hours a week or full-time live-in support, we connect you with the right provider in your area of Essex.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Home Care</h3>
+      <p>Personal care, washing, dressing, medication support and meal preparation — all in the comfort of home.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤝</div>
+      <h3>Companionship</h3>
+      <p>Regular visits for conversation, social activities, shopping trips, and preventing loneliness and isolation.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧠</div>
+      <h3>Dementia Care</h3>
+      <p>Specialist support for people living with dementia and their families, from early stages through to complex needs.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌙</div>
+      <h3>Live-in Care</h3>
+      <p>A full-time carer living in the home, providing round-the-clock support as an alternative to a care home.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">☀️</div>
+      <h3>Respite Care</h3>
+      <p>Short-term relief for family carers. Give yourself a break while your loved one receives professional care.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏥</div>
+      <h3>Hospital Discharge</h3>
+      <p>Fast, reliable support to help people return home safely after a hospital stay, with same-week availability.</p>
+      <a href="#" class="service-link" onclick="openModal('find')">Find providers</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">Simple process</div>
+  <div class="section-title">How Essex Care Connect works</div>
+  <p class="section-sub">We make finding care straightforward — no jargon, no waiting lists, just the right support quickly.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Tell us what you need</h4>
+      <p>Complete a short form about the person needing care, their location, and what support is required.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>We match you</h4>
+      <p>We identify suitable CQC-registered providers in your Essex area who have availability.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Compare & choose</h4>
+      <p>Review profiles, ratings, and specialisms. Speak to providers directly before deciding.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Care begins</h4>
+      <p>Once you're happy, care starts — often within days. We're here if you need ongoing support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROVIDERS -->
+<section class="providers" id="providers">
+  <div class="section-label">Featured providers</div>
+  <div class="section-title">Trusted Essex care providers</div>
+  <p class="section-sub">All providers are CQC-registered and serving families across Essex. Enquire free — we'll connect you directly.</p>
+  <div class="providers-grid" style="grid-template-columns: repeat(3,1fr)">
+
+    <!-- 1: Chelmsford -->
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-avatar av1">M</div>
+        <div class="provider-name">
+          <h4>My Homecare Chelmsford</h4>
+          <p>📍 Chelmsford & Mid Essex</p>
+        </div>
+        <div class="cqc-badge">⭐ CQC Outstanding</div>
+      </div>
+      <p class="provider-desc">Rated Outstanding by the CQC — one of the highest rated home care providers in Essex. Specialises in personal care, dementia support and elderly care at home.</p>
+      <div class="provider-tags">
+        <span class="ptag">Personal Care</span>
+        <span class="ptag">Dementia</span>
+        <span class="ptag">Elderly Care</span>
+        <span class="ptag">Home Visits</span>
+      </div>
+      <div class="provider-footer">
+        <div class="provider-rating">
+          <span class="rating-stars">⭐</span>
+          <span class="rating-num">CQC Outstanding</span>
+        </div>
+        <button class="enquire-btn" onclick="openModal('find')">Enquire</button>
+      </div>
+    </div>
+
+    <!-- 2: Colchester -->
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-avatar av2">R</div>
+        <div class="provider-name">
+          <h4>Right at Home Colchester</h4>
+          <p>📍 Colchester & North Essex</p>
+        </div>
+        <div class="cqc-badge">✓ CQC Good</div>
+      </div>
+      <p class="provider-desc">Award-winning local care provider offering visiting and live-in care across Colchester. Known for their highly personalised one-to-one approach.</p>
+      <div class="provider-tags">
+        <span class="ptag">Live-in Care</span>
+        <span class="ptag">Companionship</span>
+        <span class="ptag">Disability Support</span>
+        <span class="ptag">Home Visits</span>
+      </div>
+      <div class="provider-footer">
+        <div class="provider-rating">
+          <span class="rating-stars">✓</span>
+          <span class="rating-num">CQC Good</span>
+        </div>
+        <button class="enquire-btn" onclick="openModal('find')">Enquire</button>
+      </div>
+    </div>
+
+    <!-- 3: Southend -->
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-avatar av3">D</div>
+        <div class="provider-name">
+          <h4>Doris Jones Southend</h4>
+          <p>📍 Southend-on-Sea & South Essex</p>
+        </div>
+        <div class="cqc-badge">✓ CQC Good</div>
+      </div>
+      <p class="provider-desc">Premium quality care and support throughout Southend-on-Sea. Highly regarded locally with over 110 family reviews and a strong reputation for dignity and compassion.</p>
+      <div class="provider-tags">
+        <span class="ptag">Personal Care</span>
+        <span class="ptag">Companionship</span>
+        <span class="ptag">Dementia</span>
+        <span class="ptag">Respite</span>
+      </div>
+      <div class="provider-footer">
+        <div class="provider-rating">
+          <span class="rating-stars">✓</span>
+          <span class="rating-num">CQC Good</span>
+        </div>
+        <button class="enquire-btn" onclick="openModal('find')">Enquire</button>
+      </div>
+    </div>
+
+    <!-- 4: Basildon -->
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-avatar av1">H</div>
+        <div class="provider-name">
+          <h4>Home Instead Basildon</h4>
+          <p>📍 Basildon & surrounding areas</p>
+        </div>
+        <div class="cqc-badge">✓ CQC Good</div>
+      </div>
+      <p class="provider-desc">Family-owned local provider dedicated to high quality, person-centred care. Helps people stay in their own homes with tailored support and 86 verified family reviews.</p>
+      <div class="provider-tags">
+        <span class="ptag">Personal Care</span>
+        <span class="ptag">Dementia</span>
+        <span class="ptag">Companionship</span>
+        <span class="ptag">Home Visits</span>
+      </div>
+      <div class="provider-footer">
+        <div class="provider-rating">
+          <span class="rating-stars">✓</span>
+          <span class="rating-num">CQC Good</span>
+        </div>
+        <button class="enquire-btn" onclick="openModal('find')">Enquire</button>
+      </div>
+    </div>
+
+    <!-- 5: Brentwood -->
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-avatar av2">R</div>
+        <div class="provider-name">
+          <h4>Right at Home Brentwood</h4>
+          <p>📍 Brentwood, Billericay & Rayleigh</p>
+        </div>
+        <div class="cqc-badge">✓ CQC Good</div>
+      </div>
+      <p class="provider-desc">Established, award-winning locally owned provider covering Brentwood and surrounding areas. Tailored care plans and consistently high family satisfaction.</p>
+      <div class="provider-tags">
+        <span class="ptag">Personal Care</span>
+        <span class="ptag">Live-in Care</span>
+        <span class="ptag">Respite</span>
+        <span class="ptag">Disability Support</span>
+      </div>
+      <div class="provider-footer">
+        <div class="provider-rating">
+          <span class="rating-stars">✓</span>
+          <span class="rating-num">CQC Good</span>
+        </div>
+        <button class="enquire-btn" onclick="openModal('find')">Enquire</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INDEPENDENT CARERS -->
+<section class="carers-section" id="carers">
+  <div class="section-label">Work with us</div>
+
+  <div class="carers-intro">
+    <div class="carers-intro-text">
+      <h2>Are you an independent carer in Essex?</h2>
+      <p>Register with Essex Care Connect and we'll send you clients in your local area — no agency fees, no middleman. You set your own hours, your own rates, and work directly with families.</p>
+      <p>We match you with families who need exactly the kind of care you offer, in the area you cover.</p>
+      <div class="dbs-notice">
+        <span class="dbs-icon">🔒</span>
+        <span><strong>DBS check required.</strong> To protect the families we work with, all independent carers must hold a valid enhanced DBS certificate. We'll ask for your DBS number when you apply. Don't have one yet? You can apply at gov.uk/request-copy-criminal-record.</span>
+      </div>
+    </div>
+
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <span class="b-icon">💷</span>
+        <div>
+          <h4>Keep more of what you earn</h4>
+          <p>No agency taking 30–40% of your rate. Work directly with families and agree your own pay.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-icon">🗓️</span>
+        <div>
+          <h4>Choose your own hours</h4>
+          <p>You decide when you work. Morning visits, evenings, weekends, live-in — you set the terms.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-icon">📍</span>
+        <div>
+          <h4>Work close to home</h4>
+          <p>We only send you clients in your local Essex area — no long commutes to unfamiliar areas.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <span class="b-icon">🆓</span>
+        <div>
+          <h4>Free to register</h4>
+          <p>Registering is completely free. We connect you with families at no cost to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNUP FORM -->
+  <div class="carer-signup-form" id="carer-form-wrap">
+    <h3>Register as an Independent Carer</h3>
+    <p>Takes 2 minutes — we'll review your details and be in touch within 48 hours</p>
+
+    <div id="carer-form">
+      <div class="form-group-inline">
+        <div>
+          <label class="carer-form-label">First Name</label>
+          <input class="carer-form-input" type="text" id="c-fname" placeholder="Jane">
+        </div>
+        <div>
+          <label class="carer-form-label">Last Name</label>
+          <input class="carer-form-input" type="text" id="c-lname" placeholder="Smith">
+        </div>
+      </div>
+
+      <div class="form-group-inline">
+        <div>
+          <label class="carer-form-label">Phone Number</label>
+          <input class="carer-form-input" type="tel" id="c-phone" placeholder="07700 900000">
+        </div>
+        <div>
+          <label class="carer-form-label">Email Address</label>
+          <input class="carer-form-input" type="email" id="c-email" placeholder="jane@email.com">
+        </div>
+      </div>
+
+      <div class="form-group-inline">
+        <div>
+          <label class="carer-form-label">Your Area of Essex</label>
+          <select class="carer-form-input" id="c-area">
+            <option value="">Select your area…</option>
+            <option>Chelmsford</option>
+            <option>Colchester</option>
+            <option>Southend-on-Sea</option>
+            <option>Brentwood</option>
+            <option>Basildon</option>
+            <option>Harlow</option>
+            <option>Braintree</option>
+            <option>Epping Forest</option>
+            <option>Other Essex area</option>
+          </select>
+        </div>
+        <div>
+          <label class="carer-form-label">Years of Experience</label>
+          <select class="carer-form-input" id="c-exp">
+            <option>Less than 1 year</option>
+            <option>1–3 years</option>
+            <option>3–5 years</option>
+            <option>5–10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <span class="checkbox-group-label">Services you can provide (tick all that apply)</span>
+        <div class="checkbox-grid">
+          <label class="checkbox-item"><input type="checkbox"> Personal care & washing</label>
+          <label class="checkbox-item"><input type="checkbox"> Companionship visits</label>
+          <label class="checkbox-item"><input type="checkbox"> Dementia care</label>
+          <label class="checkbox-item"><input type="checkbox"> Medication support</label>
+          <label class="checkbox-item"><input type="checkbox"> Meal preparation</label>
+          <label class="checkbox-item"><input type="checkbox"> Live-in care</label>
+          <label class="checkbox-item"><input type="checkbox"> Night care</label>
+          <label class="checkbox-item"><input type="checkbox"> Hospital discharge support</label>
+          <label class="checkbox-item"><input type="checkbox"> Light housekeeping</label>
+          <label class="checkbox-item"><input type="checkbox"> Shopping & errands</label>
+        </div>
+      </div>
+
+      <div class="form-group-inline">
+        <div>
+          <label class="carer-form-label">Hourly Rate (£)</label>
+          <input class="carer-form-input" type="text" id="c-rate" placeholder="e.g. £15–18/hr">
+        </div>
+        <div>
+          <label class="carer-form-label">DBS Certificate Number</label>
+          <input class="carer-form-input" type="text" id="c-dbs" placeholder="Your DBS number">
+        </div>
+      </div>
+
+      <div>
+        <label class="carer-form-label">Anything else we should know?</label>
+        <textarea class="carer-form-input" id="c-notes" rows="3" placeholder="e.g. languages spoken, specialist experience, driving licence, availability…"></textarea>
+      </div>
+
+      <button class="carer-submit-btn" onclick="submitCarerForm()">Apply to Register — It's Free</button>
+    </div>
+
+    <div class="carer-success" id="carer-success">
+      <div class="check">💚</div>
+      <h4>Application received!</h4>
+      <p>We'll review your details and be in touch within 48 hours. Welcome to Essex Care Connect.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Are you a care provider in Essex?</h2>
+  <p>Join our directory and connect with families actively looking for care in your area. Free to list.</p>
+  <div class="cta-buttons">
+      <a href="#" class="btn-white" onclick="openModal('provider')">List Your Agency</a>
+      <a href="#carers" class="btn-outline-white">Register as Independent Carer</a>
+      <a href="#" class="btn-outline-white" onclick="openModal('find')">Find Care for a Loved One</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Essex Care<span>Connect</span></div>
+  <nav>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#providers">Providers</a></li>
+      <li><a href="#carers">Work as a Carer</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#" onclick="openModal('provider')">Join as Agency</a></li>
+    </ul>
+  </nav>
+  <div style="text-align:right; line-height:1.8;">
+    <a href="tel:07466094348" style="color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.82rem; display:block;">📞 07466 094348</a>
+    <a href="mailto:essexcareconnect@gmail.com" style="color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.82rem; display:block;">✉️ essexcareconnect@gmail.com</a>
+    <a href="https://wa.me/447466094348" target="_blank" style="color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.82rem; display:block;">💬 WhatsApp us</a>
+    <span style="font-size:0.75rem; color:rgba(255,255,255,0.25);">© 2026 Essex Care Connect</span>
+  </div>
+</footer>
+
+<!-- MODAL: Find Care -->
+<div class="modal-overlay" id="modal-find" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect('find')">✕</button>
+    <h3>Find Care in Essex</h3>
+    <p>Tell us what you need and we'll match you with the right local providers.</p>
+    <div id="form-find">
+      <form id="formspree-find" action="https://formspree.io/f/xkokpbbd" method="POST" onsubmit="handleFormSubmit(event, 'find')">
+        <input type="hidden" name="_replyto" value="essexcareconnect@gmail.com">
+        <input type="hidden" name="_subject" value="New Care Enquiry — Essex Care Connect">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="07700 900000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="jane@example.com">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Area of Essex</label>
+            <select name="area">
+              <option>Chelmsford</option>
+              <option>Colchester</option>
+              <option>Southend-on-Sea</option>
+              <option>Brentwood</option>
+              <option>Basildon</option>
+              <option>Harlow</option>
+              <option>Braintree</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Type of Care</label>
+            <select name="care_type">
+              <option>Personal Care</option>
+              <option>Companionship</option>
+              <option>Dementia Care</option>
+              <option>Live-in Care</option>
+              <option>Respite Care</option>
+              <option>Hospital Discharge</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tell us more (optional)</label>
+          <textarea name="message" placeholder="Any specific needs, hours required, or questions..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Enquiry — It's Free</button>
+      </form>
+    </div>
+    <div class="success-msg" id="success-find">
+      <div class="check">💚</div>
+      <h4>Enquiry received!</h4>
+      <p>We'll be in touch within 24 hours with matched providers in your area.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Provider -->
+<div class="modal-overlay" id="modal-provider" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect('provider')">✕</button>
+    <h3>List Your Service</h3>
+    <p>Join Essex Care Connect and reach families looking for care in your area. Free to get started.</p>
+    <div id="form-provider">
+      <form id="formspree-provider" action="https://formspree.io/f/xkokpbbd" method="POST" onsubmit="handleFormSubmit(event, 'provider')">
+        <input type="hidden" name="_subject" value="New Provider Application — Essex Care Connect">
+        <div class="form-group">
+          <label>Organisation / Your Name</label>
+          <input type="text" name="organisation" placeholder="e.g. Sunrise Care Services" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Contact Name</label>
+            <input type="text" name="contact_name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="phone" placeholder="07700 900000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="hello@yourcare.co.uk" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Area Covered</label>
+            <select name="area">
+              <option>Chelmsford</option>
+              <option>Colchester</option>
+              <option>Southend</option>
+              <option>Brentwood</option>
+              <option>Basildon</option>
+              <option>Multiple areas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>CQC Registered?</label>
+            <select name="cqc_rating">
+              <option>Yes — CQC Good</option>
+              <option>Yes — CQC Outstanding</option>
+              <option>Yes — CQC Requires Improvement</option>
+              <option>No / Independent carer</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Apply to Join — Free</button>
+      </form>
+    </div>
+    <div class="success-msg" id="success-provider">
+      <div class="check">🌿</div>
+      <h4>Application received!</h4>
+      <p>We'll review your details and be in touch within 2 working days to get you listed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/447466094348?text=Hi%2C%20I%20found%20Essex%20Care%20Connect%20and%20I%27d%20like%20to%20find%20out%20more%20about%20care%20in%20Essex."
+   target="_blank"
+   style="
+     position: fixed;
+     bottom: 1.5rem;
+     right: 1.5rem;
+     z-index: 999;
+     width: 58px; height: 58px;
+     background: #25d366;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+     transition: transform 0.2s, box-shadow 0.2s;
+     text-decoration: none;
+   "
+   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,0.5)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.4)'"
+   title="Chat with us on WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<script>
+  // Formspree form handler
+  async function handleFormSubmit(e, type) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      const res = await fetch('https://formspree.io/f/xkokpbbd', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-' + type).style.display = 'none';
+        document.getElementById('success-' + type).style.display = 'block';
+        setTimeout(() => closeModalDirect(type), 3500);
+      } else {
+        alert('Something went wrong. Please WhatsApp us on 07466 094348 or email essexcareconnect@gmail.com');
+      }
+    } catch {
+      alert('Something went wrong. Please WhatsApp us on 07466 094348 or email essexcareconnect@gmail.com');
+    }
+  }
+
+  function openModal(type) {
+    event && event.preventDefault();
+    document.getElementById('modal-' + type).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+      e.target.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function closeModalDirect(type) {
+    document.getElementById('modal-' + type).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function submitCarerForm() {
+    const fname = document.getElementById('c-fname').value.trim();
+    const dbs = document.getElementById('c-dbs').value.trim();
+    if (!fname) { alert('Please enter your first name'); return; }
+    if (!dbs) { alert('Please enter your DBS certificate number'); return; }
+    document.getElementById('carer-form').style.display = 'none';
+    document.getElementById('carer-success').style.display = 'block';
+  }
+
+  function submitForm(type) {
+    document.getElementById('form-' + type).style.display = 'none';
+    document.getElementById('success-' + type).style.display = 'block';
+    setTimeout(() => closeModalDirect(type), 3000);
+  }
+</script>
+</body>
+</html>
